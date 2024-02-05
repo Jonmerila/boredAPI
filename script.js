@@ -20,9 +20,6 @@ const getData = async (url) => {
 
   console.log(json);
 };
-// const buildUrl = () => {
-//   return "https://www.boredapi.com/api/activity";
-// };
 
 const url = "https://www.boredapi.com/api/activity";
 
