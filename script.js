@@ -18,12 +18,29 @@ const getData = async (url) => {
     activityContainer.append(p);
   });
 
-  console.log(json);
+  //   console.log(json);
 };
 
-const url = "https://www.boredapi.com/api/activity";
+const buildUrl = async (participants, checkbox, dropdown) => {
+  let params = new URLSearchParams();
+  params.append("participants", participants.value);
+  if (checkbox.value == true) {
+    params.append("maxprice", 0.0);
+  }
+  params.append("type", dropdown.value);
+  let url = await getData("http://www.boredapi.com/api/activity?" + params);
+    console.log(url);
+    return url;
+};
 
 // console.log(getData("https://www.boredapi.com/api/activity"));
-getActivity.addEventListener("click", () =>
-  getData("https://www.boredapi.com/api/activity")
-);
+getActivity.addEventListener("click", () => {
+  const participants = document.querySelector('input[type="radio"]:checked');
+  const checkBox = document.querySelector("#free");
+  const dropDown = document.querySelector("#dropdown");
+  getData("https://www.boredapi.com/api/activity");
+ getData(buildUrl(participants, checkBox, dropDown));
+  //   console.log(participants.value);
+  //   console.log(checkBox.checked);
+  //   console.log(dropdown.value);
+});
