@@ -31,17 +31,22 @@ const getData = async (url) => {
   }
 };
 
-const buildUrl = (participants, checkbox, dropdown) => {
+const buildUrl = (participants, checkbox, dropdown, minprice, maxprice) => {
+  console.log(minprice.value, maxprice.value)
   let params = new URLSearchParams();
   if (participants.value !== "any") {
     params.append("participants", participants.value);
   }
   if (checkbox.checked) {
     params.append("price", 0.0);
+  } else if (minprice.value !== "0.00" && maxprice.value !== "1.00") {
+    params.append("minprice", minprice.value)
+    params.append("maxprice", maxprice.value)
   }
   if (dropdown.value !== "any") {
     params.append("type", dropdown.value);
   }
+
   let url = "http://www.boredapi.com/api/activity?" + params;
   console.log(url);
   return url;
@@ -52,9 +57,12 @@ getActivity.addEventListener("click", async () => {
   const participants = document.querySelector('input[type="radio"]:checked');
   const checkBox = document.querySelector("#free");
   const dropDown = document.querySelector("#dropdown");
+  const priceMin = document.querySelector("#priceMin");
+  const priceMax = document.querySelector("#priceMax");
+  console.log(priceMin.value, priceMax.value);
   //   getData("https://www.boredapi.com/api/activity");
-  console.log(buildUrl(participants, checkBox, dropDown));
-  let url = buildUrl(participants, checkBox, dropDown);
+  // console.log(buildUrl(participants, checkBox, dropDown)); <- var tvungen att kommentera ut denna rad för att det skulle funka...
+  let url = buildUrl(participants, checkBox, dropDown, priceMin, priceMax);
   console.log("url", url);
   await getData(url);
   //   console.log(participants.value);
