@@ -1,0 +1,23 @@
+body {
+  height: 100vh;
+}
+
+.dual-range-slider {
+  //   position: relative;
+  top: 20%;
+  width: 300px;
+}
+
+.range-slider {
+  //   position: absolute;
+  //   width: calc(100%); /* Adjust as needed */
+  height: 20px; /* Adjust as needed */
+}
+
+.range-slider:first-child {
+  left: 0;
+}
+
+.range-slider:last-child {
+  right: 0;
+}

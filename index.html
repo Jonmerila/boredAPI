@@ -20,6 +20,43 @@
     <label for="fourPart">4</label
     ><input type="radio" name="participants" id="fourPart" value="4" />
     <label for="free">Free<input type="checkbox" name="" id="free" /></label>
+    <!-- <div class="range-input">
+      <label for="priceRange">Price Range: $0</label>
+
+      <input
+        id="priceRange"
+        type="range"
+        class="min-range"
+        min="0.0"
+        max="1.0"
+        value="1"
+        step="0.01"
+      />
+      <label for="priceRange">100$</label>
+      <p>Chosen Price: $</p>
+      <p class="chosenPrice">100</p>
+    </div> -->
+
+    <div class="dual-range-slider">
+      <input
+        type="range"
+        class="range-slider min"
+        min="0"
+        max="1"
+        value="0.0"
+        step="0.01"
+      />
+      <input
+        type="range"
+        class="range-slider max"
+        min="0"
+        max="1"
+        value="1"
+        step="0.01"
+      />
+    </div>
+    <p>Min Price: <span class="minPrice"></span></p>
+    <p>Max Price: <span class="maxPrice"></span></p>
     <label for="dropdown"
       >Activity type<select name="" id="dropdown">
         <option value="any">Any</option>
