@@ -32,24 +32,33 @@ const getData = async (url) => {
 };
 
 const buildUrl = (participants, checkbox, dropdown, minprice, maxprice) => {
-  console.log(minprice.value, maxprice.value)
-  let params = new URLSearchParams();
-  if (participants.value !== "any") {
-    params.append("participants", participants.value);
-  }
-  if (checkbox.checked) {
-    params.append("price", 0.0);
-  } else if (minprice.value !== "0.00" && maxprice.value !== "1.00") {
-    params.append("minprice", minprice.value)
-    params.append("maxprice", maxprice.value)
-  }
-  if (dropdown.value !== "any") {
-    params.append("type", dropdown.value);
-  }
+  console.log(minprice.value, maxprice.value);
+  try {
+    let params = new URLSearchParams();
+    if (participants.value !== "any") {
+      params.append("participants", participants.value);
+    }
+    if (checkbox.checked) {
+      params.append("price", 0.0);
+    } else if (minprice.value !== "0.00" && maxprice.value > minprice.value) {
+      params.append("minprice", minprice.value);
+      params.append("maxprice", maxprice.value);
+    } else if (minprice.value > maxprice.value) {
+      throw new Error("Not a valid price range");
+    }
+    if (dropdown.value !== "any") {
+      params.append("type", dropdown.value);
+    }
 
-  let url = "http://www.boredapi.com/api/activity?" + params;
-  console.log(url);
-  return url;
+    let url = "http://www.boredapi.com/api/activity?" + params;
+    console.log(url);
+    return url;
+  } catch (err) {
+    let errorTitle = document.createElement("h1");
+    errorTitle.textContent =
+      "Select a valid price range, min price must be lower than max price.";
+    activityContainer.append(errorTitle);
+  }
 };
 
 // console.log(getData("https://www.boredapi.com/api/activity"));
